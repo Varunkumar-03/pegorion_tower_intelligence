@@ -1,0 +1,28 @@
+{
+  "name": "pegorion-platform",
+  "version": "1.0.0",
+  "description": "Enterprise Telecom Infrastructure Intelligence Platform for Vertical Bridge",
+  "scripts": {
+    "dev": "npm run dev --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "start": "npm run start --prefix frontend",
+    "lint": "npm run lint --prefix frontend",
+    "type-check": "npm run type-check --prefix frontend"
+  },
+  "dependencies": {
+    "next": "13.4.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "lucide-react": "^0.383.0",
+    "@tanstack/react-query": "^5.0.0",
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "typescript": "^5.0.0",
+    "@types/react": "^18.0.0",
+    "@types/node": "^20.0.0"
+  }
+}

@@ -1,0 +1,68 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Frontend
+/frontend/.next/
+/frontend/node_modules/
+/frontend/out/
+/frontend/build/
+/frontend/*.log
+/frontend/package-lock.json
+!/frontend/package.json
+
+# Backend
+/backend/__pycache__/
+/backend/*.pyc
+/backend/*.pyo
+/backend/*.egg-info
+/backend/.venv
+/backend/instance/
+/backend/data/
+/backend/tests/__pycache__/
+/backend/alembic/versions/*.pyc
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.pyc
+.DS_Store
+Thumbs.db
+
+# Documentation - keep audit reports
+!docs/*.md
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+
+# Secrets and credentials (NEVER commit these)
+*.pem
+*.key
+*.crt
+secrets/
+config/secrets/
+
+# Database dumps
+*.sql
+*.dump
+backups/
+
+# Test coverage
+coverage/
+*.cover
+htmlcov/
+.pytest_cache/
+# Root dependencies
+node_modules/
