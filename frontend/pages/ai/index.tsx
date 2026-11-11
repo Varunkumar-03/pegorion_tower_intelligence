@@ -204,104 +204,63 @@ export default function AIWorkspacePage() {
             )}
           </div>
 
-          {/* 3 Action Buttons matching the cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {/* 3 Action Buttons */}
+          <div className="flex flex-wrap items-center gap-3">
             {/* Button 1: Document Analysis */}
             <button
               type="button"
               onClick={() => handleCapabilityClick('document')}
-              className={`p-4 border text-left transition-all cursor-pointer flex items-start space-x-3.5 rounded-none shadow-sm ${
+              className={`inline-flex items-center px-4 py-2.5 text-xs font-semibold rounded-none border transition-all cursor-pointer shadow-sm ${
                 activeCapability === 'document'
-                  ? 'bg-[#0B1A2E] text-white border-[#0B1A2E] ring-1 ring-[#0B1A2E]'
-                  : 'bg-white border-gray-200 text-gray-900 hover:border-blue-400 hover:bg-blue-50/40'
+                  ? 'bg-[#0B1A2E] text-white border-[#0B1A2E]'
+                  : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50 hover:border-slate-400'
               }`}
+              title="Extract clauses, terms, and key provisions"
             >
-              <div className={`w-11 h-11 flex-shrink-0 flex items-center justify-center border rounded-none ${
-                activeCapability === 'document'
-                  ? 'bg-[#163356] border-[#163356] text-blue-300'
-                  : 'bg-blue-50 border-blue-100 text-blue-600'
-              }`}>
-                <FileText className="w-5 h-5" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-bold">Document Analysis</span>
-                  {activeCapability === 'document' && (
-                    <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
-                  )}
-                </div>
-                <p className={`text-xs mt-1 leading-relaxed ${
-                  activeCapability === 'document' ? 'text-slate-300' : 'text-gray-500'
-                }`}>
-                  Extract clauses, terms, and key provisions
-                </p>
-              </div>
+              <FileText className={`w-4 h-4 mr-2 ${activeCapability === 'document' ? 'text-blue-400' : 'text-blue-600'}`} />
+              <span>Document Analysis</span>
+              {activeCapability === 'document' && (
+                <span className="ml-2 w-1.5 h-1.5 rounded-full bg-blue-400" />
+              )}
             </button>
 
             {/* Button 2: Case Resolution */}
             <button
               type="button"
               onClick={() => handleCapabilityClick('case')}
-              className={`p-4 border text-left transition-all cursor-pointer flex items-start space-x-3.5 rounded-none shadow-sm ${
+              className={`inline-flex items-center px-4 py-2.5 text-xs font-semibold rounded-none border transition-all cursor-pointer shadow-sm ${
                 activeCapability === 'case'
-                  ? 'bg-[#0B1A2E] text-white border-[#0B1A2E] ring-1 ring-[#0B1A2E]'
-                  : 'bg-white border-gray-200 text-gray-900 hover:border-blue-400 hover:bg-blue-50/40'
+                  ? 'bg-[#0B1A2E] text-white border-[#0B1A2E]'
+                  : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50 hover:border-slate-400'
               }`}
+              title="Get resolution recommendations for legal matters"
             >
-              <div className={`w-11 h-11 flex-shrink-0 flex items-center justify-center border rounded-none ${
-                activeCapability === 'case'
-                  ? 'bg-[#163356] border-[#163356] text-blue-300'
-                  : 'bg-blue-50 border-blue-100 text-blue-600'
-              }`}>
-                <Scale className="w-5 h-5" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-bold">Case Resolution</span>
-                  {activeCapability === 'case' && (
-                    <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
-                  )}
-                </div>
-                <p className={`text-xs mt-1 leading-relaxed ${
-                  activeCapability === 'case' ? 'text-slate-300' : 'text-gray-500'
-                }`}>
-                  Get resolution recommendations for legal matters
-                </p>
-              </div>
+              <Scale className={`w-4 h-4 mr-2 ${activeCapability === 'case' ? 'text-blue-400' : 'text-blue-600'}`} />
+              <span>Case Resolution</span>
+              {activeCapability === 'case' && (
+                <span className="ml-2 w-1.5 h-1.5 rounded-full bg-blue-400" />
+              )}
             </button>
 
             {/* Button 3: Predictive Insights */}
             <button
               type="button"
               onClick={() => handleCapabilityClick('predictive')}
-              className={`p-4 border text-left transition-all cursor-pointer flex items-start space-x-3.5 rounded-none shadow-sm ${
+              className={`inline-flex items-center px-4 py-2.5 text-xs font-semibold rounded-none border transition-all cursor-pointer shadow-sm ${
                 activeCapability === 'predictive'
-                  ? 'bg-[#0B1A2E] text-white border-[#0B1A2E] ring-1 ring-[#0B1A2E]'
-                  : 'bg-white border-gray-200 text-gray-900 hover:border-blue-400 hover:bg-blue-50/40'
+                  ? 'bg-[#0B1A2E] text-white border-[#0B1A2E]'
+                  : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50 hover:border-slate-400'
               }`}
+              title="Risk scoring and timeline predictions"
             >
-              <div className={`w-11 h-11 flex-shrink-0 flex items-center justify-center border rounded-none ${
-                activeCapability === 'predictive'
-                  ? 'bg-[#163356] border-[#163356] text-blue-300'
-                  : 'bg-blue-50 border-blue-100 text-blue-600'
-              }`}>
-                <TrendingUp className="w-5 h-5" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-bold">Predictive Insights</span>
-                  {activeCapability === 'predictive' && (
-                    <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
-                  )}
-                </div>
-                <p className={`text-xs mt-1 leading-relaxed ${
-                  activeCapability === 'predictive' ? 'text-slate-300' : 'text-gray-500'
-                }`}>
-                  Risk scoring and timeline predictions
-                </p>
-              </div>
+              <TrendingUp className={`w-4 h-4 mr-2 ${activeCapability === 'predictive' ? 'text-blue-400' : 'text-blue-600'}`} />
+              <span>Predictive Insights</span>
+              {activeCapability === 'predictive' && (
+                <span className="ml-2 w-1.5 h-1.5 rounded-full bg-blue-400" />
+              )}
             </button>
           </div>
+
 
           {/* Interactive Capability Details Panel */}
           {activeCapability && (
