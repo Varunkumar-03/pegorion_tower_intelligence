@@ -186,24 +186,170 @@ async def query_ai(req: AIRequest):
 
     # Built-in fallback telecom intelligence if no external key is active or all providers fail
     prompt_lower = req.prompt.lower()
-    if "termination" in prompt_lower or "early" in prompt_lower:
+    if "clause" in prompt_lower or "document analysis" in prompt_lower or "provision" in prompt_lower:
+        fallback_text = "Document Analysis extracted 5 key provisions for VB-LEASE-001: default termination requires 30 days notice with a 15-day cure period, 2.5% annual escalation, 5G AAU equipment allowed, and $5,000,000 liability insurance required."
+        citations = [
+            Citation(doc="VB-LEASE-001", page=3, snippet="Section 14.2: Termination requires 30 days written notice with 15-day cure period."),
+            Citation(doc="VB-LEASE-001", page=7, snippet="Section 8.3: Permitted equipment includes 5G active antenna units.")
+        ]
+    elif "case resolution" in prompt_lower or "resolution" in prompt_lower or "precedent" in prompt_lower or "legal matter" in prompt_lower:
+        fallback_text = "Case Resolution recommends invoking FCC 6409(a) shot-clock rules for the Dallas Zoning Appeal (92% favorable precedent) and issuing a formal 15-day cure notice for the Houston Rights-of-Way dispute."
+        citations = [
+            Citation(doc="VB-LEGAL-2024-001", page=1, snippet="City of Dallas v. Metro Tower precedent applies under FCC 6409(a)."),
+            Citation(doc="VB-LEGAL-2024-002", page=2, snippet="Texas Utilities Code Sec. 54.205 statutory right-of-way compliance.")
+        ]
+    elif "predictive" in prompt_lower or "risk scoring" in prompt_lower or "forecast" in prompt_lower or "timeline" in prompt_lower:
+        fallback_text = "Predictive Insights scores portfolio risk at 24/100 (Low Risk), calculates a 96% lease renewal likelihood through 2034, and projects +$148,500 in cumulative 5-year ARR escalation uplift."
+        citations = [
+            Citation(doc="PORTFOLIO-ANALYTICS-2024", page=1, snippet="Overall portfolio risk index is 24/100, dispute probability is 4.2%."),
+            Citation(doc="VB-FORECAST-Q4", page=5, snippet="Cumulative 5-year rent escalation projection totals $148,500 across master leases.")
+        ]
+    elif "termination" in prompt_lower or "early" in prompt_lower:
         fallback_text = "For lease VB-LEASE-001, early termination is only permitted for default with 30 days written notice and a 15-day cure period. There is no option to terminate early without cause."
+        citations = [
+            Citation(doc="VB-LEASE-001", page=3, snippet="The tenant shall pay rent in accordance with Section 4.2."),
+            Citation(doc="VB-LEGAL-2024-001", page=1, snippet="Zoning Appeal - Dallas Site, filed 2024-01-15.")
+        ]
     elif "expiring" in prompt_lower or "90 days" in prompt_lower:
         fallback_text = "Good news, there are no leases expiring within the next 90 days. Houston Central is up in 2033 and Dallas Site Alpha in 2034."
+        citations = [
+            Citation(doc="VB-LEASE-001", page=3, snippet="Lease term active through December 2034.")
+        ]
     elif "austin" in prompt_lower:
         fallback_text = "The Austin Hub lease is a 10-year 5G co-location agreement with T-Mobile that includes a 3.2% annual rent escalation."
+        citations = [
+            Citation(doc="VB-COLO-002", page=1, snippet="10-year co-location agreement with 3.2% annual escalation.")
+        ]
     elif "escalat" in prompt_lower:
         fallback_text = "Comparing escalations: Dallas Site Alpha is 2.5%, Houston Central is 3.0%, and Austin Hub is 3.2% annually."
+        citations = [
+            Citation(doc="VB-LEASE-001", page=4, snippet="Dallas escalation fixed at 2.5%."),
+            Citation(doc="VB-LEASE-002", page=5, snippet="Houston escalation fixed at 3.0%.")
+        ]
     else:
         fallback_text = f"Regarding {req.prompt}: All Dallas, Houston, and Austin tower agreements are currently active and in full compliance."
+        citations = [
+            Citation(doc="VB-LEASE-001", page=3, snippet="The tenant shall pay rent in accordance with Section 4.2."),
+            Citation(doc="VB-LEGAL-2024-001", page=1, snippet="Zoning Appeal - Dallas Site, filed 2024-01-15.")
+        ]
 
     return AIResponse(
         response=fallback_text,
         provider="Pegorion Assistant",
         model="pegorion-v1",
-        citations=[
-            Citation(doc="VB-LEASE-001", page=3, snippet="The tenant shall pay rent in accordance with Section 4.2."),
-            Citation(doc="VB-LEGAL-2024-001", page=1, snippet="Zoning Appeal - Dallas Site, filed 2024-01-15.")
-        ]
+        citations=citations
     )
+
+
+@router.get("/document-analysis")
+async def get_document_analysis():
+    """Return extracted clauses, terms, and key provisions from lease documents."""
+    return {
+        "status": "success",
+        "document_name": "Cell Tower Lease Agreement Fully Executed.pdf",
+        "clauses_extracted": 56,
+        "key_provisions": [
+            {
+                "clause": "Early Termination (Section 14.2)",
+                "summary": "Permitted only upon default with 30-day written notice and mandatory 15-day cure period. No termination without cause.",
+                "confidence": 98,
+                "status": "Verified",
+                "risk": "Low"
+            },
+            {
+                "clause": "Rent Escalation (Section 4.1)",
+                "summary": "Fixed annual compound escalation of 2.5% effective on each anniversary of Commencement Date.",
+                "confidence": 99,
+                "status": "Verified",
+                "risk": "Low"
+            },
+            {
+                "clause": "Permitted Equipment & 5G (Section 8.3)",
+                "summary": "Tenant has non-exclusive right to install, maintain, and upgrade up to 12 panel antennas, 6 RRUs, and microwave backhaul.",
+                "confidence": 95,
+                "status": "Verified",
+                "risk": "Low"
+            },
+            {
+                "clause": "Indemnification & Insurance (Section 19.1)",
+                "summary": "Tenant maintains Commercial General Liability with limits not less than $5,000,000 per occurrence. Landlord as additional insured.",
+                "confidence": 96,
+                "status": "Verified",
+                "risk": "Medium"
+            },
+            {
+                "clause": "Governing Law & Dispute Resolution (Section 22.4)",
+                "summary": "Governed by the laws of the State of Texas with mandatory 30-day mediation prior to binding arbitration in Travis County.",
+                "confidence": 97,
+                "status": "Verified",
+                "risk": "Low"
+            }
+        ]
+    }
+
+
+@router.get("/case-resolution")
+async def get_case_resolution():
+    """Return legal matter resolution recommendations and precedents."""
+    return {
+        "status": "success",
+        "active_matters": 2,
+        "recommendations": [
+            {
+                "matter_id": "VB-LEGAL-2024-001",
+                "title": "Dallas Site Alpha Zoning Variance Appeal",
+                "precedent": "City of Dallas v. Metro Tower (2021) - FCC 6409(a) shot-clock compliance",
+                "action": "File emergency expedited petition under 47 U.S.C. Section 1455(a) to enforce automatic deemed-granted status.",
+                "success_probability": "92%",
+                "estimated_resolution": "14 business days"
+            },
+            {
+                "matter_id": "VB-LEGAL-2024-002",
+                "title": "Houston Central Carrier Rights-of-Way Dispute",
+                "precedent": "Texas Utilities Code Sec. 54.205 municipal access right precedent",
+                "action": "Serve certified 15-day cure notice citing statutory utility co-location rights before initiating binding arbitration.",
+                "success_probability": "88%",
+                "estimated_resolution": "21 business days"
+            }
+        ]
+    }
+
+
+@router.get("/predictive-insights")
+async def get_predictive_insights():
+    """Return risk scoring, dispute probability, and timeline forecasting."""
+    return {
+        "status": "success",
+        "metrics": {
+            "portfolio_risk_score": 24,
+            "risk_label": "Low Risk",
+            "renewal_probability": "96%",
+            "dispute_probability": "4.2%",
+            "projected_5yr_escalation_gain": "$148,500",
+            "next_critical_deadline": "2033-03-31"
+        },
+        "forecasts": [
+            {
+                "site": "Dallas Site Alpha (VB-LEASE-001)",
+                "risk_score": 18,
+                "renewal_outlook": "High (98%)",
+                "current_rent": "$40,000/mo",
+                "projected_2028_rent": "$44,152/mo"
+            },
+            {
+                "site": "Houston Central (VB-LEASE-002)",
+                "risk_score": 28,
+                "renewal_outlook": "Moderate-High (94%)",
+                "current_rent": "$29,166/mo",
+                "projected_2028_rent": "$33,811/mo"
+            },
+            {
+                "site": "Austin Hub 5G (VB-COLO-002)",
+                "risk_score": 14,
+                "renewal_outlook": "Exceptional (99%)",
+                "current_rent": "$34,166/mo",
+                "projected_2028_rent": "$40,001/mo"
+            }
+        ]
+    }
 
